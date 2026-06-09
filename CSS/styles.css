@@ -1,0 +1,14 @@
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,Helvetica,sans-serif}
+body{background:#f7f8fc;color:#1f2937}a{color:#4338ca;text-decoration:none}
+.login-page{min-height:100vh;display:grid;place-items:center;padding:24px}
+.login-container{width:min(100%,420px);text-align:center}
+.login-container h1{color:#4338ca;font-size:32px}
+.subtitle{color:#64748b;margin:8px 0 24px}
+.login-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;box-shadow:0 10px 30px rgba(15,23,42,.08);padding:28px;text-align:left}
+.login-card label,.password-row{display:block;font-size:13px;font-weight:700;margin:14px 0 7px}
+.password-row{display:flex;justify-content:space-between}
+.password-row a{font-size:12px;font-weight:500}
+.login-card input[type=email],.login-card input[type=password]{width:100%;padding:12px;border:1px solid #dbe1ea;border-radius:9px}.remember{display:flex!important;gap:8px;align-items:center;font-weight:500!important}
+.primary,.secondary{width:100%;border-radius:9px;cursor:pointer;font-weight:700;padding:12px}
+.primary{background:#4338ca;border:1px solid #4338ca;color:#fff}.secondary{background:#fff;border:1px solid #dbe1ea}
+.divider{text-align:center;color:#94a3b8;margin:18px}.register{color:#64748b;font-size:14px;margin-top:20px}
