@@ -1,54 +1,226 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TaskManager</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
+
+  <!-- LOGIN -->
   <section id="login-view" class="view active">
-    <main class="login-page">
-      <section class="login-container">
-        <h1>TaskManager</h1><p class="subtitle">Organiza tus tareas de forma simple.</p>
-        <form id="login-form" class="login-card">
-          <label for="email">Correo electrónico</label><input id="email" type="email" placeholder="nombre@correo.com" required>
-          <div class="password-row"><label for="password">Contraseña</label><a href="#">¿Olvidaste tu contraseña?</a></div>
-          <input id="password" type="password" placeholder="********" required>
-          <label class="remember"><input type="checkbox"> Mantener la sesión iniciada</label>
-          <button type="submit" class="primary">Iniciar sesión</button><p class="divider">O</p>
-          <button type="button" class="secondary">Continuar con Google</button>
-        </form>
-      </section>
-    </main>
+    <div class="login-container">
+      <h1 class="logo">TaskManager</h1>
+      <p class="subtitle">Organiza tus tareas de forma simple</p>
+
+      <div class="login-card">
+        <label>Email</label>
+        <input type="email" placeholder="nombre@correo.com" />
+
+        <label>Password</label>
+        <input type="password" placeholder="********" />
+
+        <div class="remember-row">
+          <label><input type="checkbox" /> Mantener sesión</label>
+          <a href="#">¿Olvidaste tu contraseña?</a>
+        </div>
+
+        <button class="btn-primary" onclick="showView('dashboard-view')">Iniciar sesión</button>
+
+        <div class="divider">O</div>
+
+        <button class="btn-secondary">Continuar con Google</button>
+
+        <p class="register-text">
+          ¿No tienes cuenta? <a href="#">Regístrate</a>
+        </p>
+      </div>
+    </div>
   </section>
 
+  <!-- DASHBOARD -->
   <section id="dashboard-view" class="view">
     <div class="app-layout">
       <aside class="sidebar">
-        <div><h2>TaskManager</h2><small>Productivity</small>
-          <nav><button class="menu active">▦ Tablero</button><button class="menu">⚙ Configuración</button><button class="menu">◉ Perfil</button></nav>
+        <div>
+          <h2 class="sidebar-logo">TaskManager</h2>
+          <p class="sidebar-subtitle">Productivity</p>
+
+          <nav class="menu">
+            <button onclick="showView('dashboard-view')" class="menu-item active">Board</button>
+            <button onclick="showView('settings-view')" class="menu-item">Settings</button>
+            <button class="menu-item">Profile</button>
+          </nav>
         </div>
-        <button id="logout-button" class="menu">↪ Cerrar sesión</button>
+
+        <div class="sidebar-footer">
+          <button class="menu-item">Help</button>
+          <button class="menu-item" onclick="showView('login-view')">Logout</button>
+        </div>
       </aside>
-      <main class="content">
-        <header class="topbar"><input placeholder="Buscar tareas o equipos..."><button>+ Crear tarea</button></header>
-        <h1>Tablero de estrategia de producto</h1><p class="muted">Planificación trimestral y desarrollo del roadmap.</p>
+
+      <main class="main-content">
+        <header class="topbar">
+          <input type="text" placeholder="Buscar tareas..." class="search-box" />
+          <button class="btn-primary">+ Crear tarea</button>
+        </header>
+
+        <section class="board-header">
+          <h1>Product Strategy Board</h1>
+          <p>Planificación y desarrollo del roadmap</p>
+        </section>
+
         <section class="board">
-          <article class="column"><h2>Por hacer <span>2</span></h2>
-            <div class="task"><small>Investigación</small><h3>Análisis de entrevistas</h3><p>Sintetizar hallazgos de las entrevistas realizadas.</p></div>
-            <div class="task"><small>Diseño</small><h3>Actualizar navegación móvil</h3><p>Explorar patrones de pestañas para la próxima versión.</p></div>
-          </article>
-          <article class="column"><h2>En progreso <span>1</span></h2>
-            <div class="task highlight"><small>Ingeniería</small><h3>Actualizar documentación de API</h3><p>Documentar las rutas y respuestas principales.</p></div>
-          </article>
-          <article class="column"><h2>Finalizadas <span>1</span></h2>
-            <div class="task done"><small>QA</small><h3>Auditoría de accesibilidad</h3><p>Revisión de cumplimiento completada.</p></div>
-          </article>
+          <div class="column">
+            <h3>To Do</h3>
+            <div class="task-card">
+              <span class="tag">Research</span>
+              <h4>User Interview Analysis</h4>
+              <p>Sintetizar hallazgos de entrevistas.</p>
+              <small>Oct 24</small>
+            </div>
+
+            <div class="task-card">
+              <span class="tag">Design</span>
+              <h4>Mobile Navigation Refresh</h4>
+              <p>Rediseñar la navegación móvil.</p>
+            </div>
+          </div>
+
+          <div class="column">
+            <h3>In Progress</h3>
+            <div class="task-card highlight" onclick="toggleTaskPanel()">
+              <span class="tag">Engineering</span>
+              <h4>API Documentation Update</h4>
+              <p>Actualizar documentación de la API.</p>
+              <small>8/12 tasks</small>
+            </div>
+          </div>
+
+          <div class="column">
+            <h3>Done</h3>
+            <div class="task-card done">
+              <span class="tag">QA</span>
+              <h4>Accessibility Audit v2</h4>
+              <p>Revisión de accesibilidad completada.</p>
+              <small>Completed Oct 18</small>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- PANEL DETALLE -->
+      <aside id="task-panel" class="task-panel hidden">
+        <div class="task-panel-header">
+          <h2>Detalle de tarea</h2>
+          <button onclick="toggleTaskPanel()">✕</button>
+        </div>
+
+        <h3>Refactor Auth Logic</h3>
+
+        <label>Prioridad</label>
+        <select>
+          <option>Crítica</option>
+          <option>Alta</option>
+          <option>Media</option>
+          <option>Baja</option>
+        </select>
+
+        <label>Fecha límite</label>
+        <input type="date" />
+
+        <label>Asignado a</label>
+        <input type="text" value="John Doe" />
+
+        <label>Descripción</label>
+        <textarea rows="8">Actualizar la lógica de autenticación para mejorar seguridad y rendimiento.</textarea>
+
+        <div class="panel-actions">
+          <button class="btn-secondary">Guardar borrador</button>
+          <button class="btn-primary">Guardar cambios</button>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- SETTINGS -->
+  <section id="settings-view" class="view">
+    <div class="app-layout">
+      <aside class="sidebar">
+        <div>
+          <h2 class="sidebar-logo">TaskManager</h2>
+          <p class="sidebar-subtitle">Productivity</p>
+
+          <nav class="menu">
+            <button onclick="showView('dashboard-view')" class="menu-item">Board</button>
+            <button onclick="showView('settings-view')" class="menu-item active">Settings</button>
+            <button class="menu-item">Profile</button>
+          </nav>
+        </div>
+
+        <div class="sidebar-footer">
+          <button class="menu-item">Help</button>
+          <button class="menu-item" onclick="showView('login-view')">Logout</button>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <section class="settings-header">
+          <h1>Settings</h1>
+          <p>Administra tus preferencias, notificaciones y espacio de trabajo.</p>
+        </section>
+
+        <section class="settings-grid">
+          <div class="card large">
+            <h3>Profile Information</h3>
+            <div class="form-grid">
+              <input type="text" placeholder="First Name" />
+              <input type="text" placeholder="Last Name" />
+              <input type="email" placeholder="Email Address" class="full" />
+              <textarea placeholder="Bio" rows="5" class="full"></textarea>
+            </div>
+            <div class="align-right">
+              <button class="btn-primary">Save Changes</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Appearance</h3>
+            <div class="toggle-options">
+              <button class="btn-secondary">Light</button>
+              <button class="btn-secondary">Dark</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Workspace</h3>
+            <select>
+              <option>Español</option>
+              <option>English</option>
+            </select>
+            <select>
+              <option>(GMT-08:00) Pacific Time</option>
+            </select>
+          </div>
+
+          <div class="card large">
+            <h3>Notification Preferences</h3>
+            <label><input type="checkbox" checked /> Notificaciones por correo</label>
+            <label><input type="checkbox" checked /> Notificaciones del navegador</label>
+            <label><input type="checkbox" /> Actividad del proyecto</label>
+          </div>
+
+          <div class="card security-card">
+            <h3>Security Check</h3>
+            <p>Tu última actualización de contraseña fue hace 3 meses.</p>
+            <button class="btn-primary">Update Security</button>
+          </div>
         </section>
       </main>
     </div>
   </section>
+
   <script src="js/script.js"></script>
 </body>
 </html>
