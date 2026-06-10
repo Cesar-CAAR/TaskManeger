@@ -69,3 +69,5 @@ p {
 .hidden {
   display: none !important;
 }
+
+body.dark-theme{--background:#111827;--surface:#1f2937;--surface-muted:#334155;--border:#475569;--text:#f8fafc;--text-muted:#cbd5e1;--primary-soft:#312e81}
