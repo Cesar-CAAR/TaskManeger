@@ -1,0 +1,41 @@
+<main class="auth-page">
+  <section class="auth-container">
+    <h1 class="auth-logo">TaskManager</h1>
+    <p class="auth-subtitle">Organiza tus tareas de forma simple.</p>
+
+    <form id="login-form" class="auth-card">
+      <div>
+        <h2>Iniciar sesión</h2>
+        <p class="muted compact">Accede a tu espacio de trabajo.</p>
+      </div>
+
+      <div class="form-group">
+        <label for="login-email">Correo electrónico</label>
+        <input id="login-email" type="email" placeholder="nombre@correo.com" required />
+      </div>
+
+      <div class="form-group">
+        <label for="login-password">Contraseña</label>
+        <input id="login-password" type="password" placeholder="********" required />
+      </div>
+
+      <label class="checkbox-label">
+        <input type="checkbox" />
+        Mantener la sesión iniciada
+      </label>
+
+      <button class="primary-button" type="submit">Iniciar sesión</button>
+
+      <div class="auth-divider">O</div>
+
+      <button class="secondary-button" type="button">Continuar con Google</button>
+
+      <p id="login-message" class="form-message" aria-live="polite"></p>
+
+      <p class="auth-link">
+        ¿No tienes una cuenta?
+        <button type="button" data-route="register">Regístrate gratis</button>
+      </p>
+    </form>
+  </section>
+</main>

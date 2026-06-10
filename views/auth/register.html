@@ -1,0 +1,56 @@
+<main class="auth-page">
+  <section class="auth-container register-container">
+    <h1 class="auth-logo">TaskManager</h1>
+    <p class="auth-subtitle">Crea una cuenta para organizar tu trabajo.</p>
+
+    <form id="register-form" class="auth-card">
+      <div>
+        <h2>Crear cuenta</h2>
+        <p class="muted compact">Completa tus datos para registrar un perfil.</p>
+      </div>
+
+      <div class="auth-row">
+        <div class="form-group">
+          <label for="register-name">Nombre</label>
+          <input id="register-name" type="text" placeholder="Nombre" required />
+        </div>
+
+        <div class="form-group">
+          <label for="register-lastname">Apellido</label>
+          <input id="register-lastname" type="text" placeholder="Apellido" required />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="register-email">Correo electrónico</label>
+        <input id="register-email" type="email" placeholder="nombre@correo.com" required />
+      </div>
+
+      <div class="auth-row">
+        <div class="form-group">
+          <label for="register-password">Contraseña</label>
+          <input id="register-password" type="password" placeholder="********" minlength="6" required />
+        </div>
+
+        <div class="form-group">
+          <label for="register-confirm">Confirmar contraseña</label>
+          <input id="register-confirm" type="password" placeholder="********" minlength="6" required />
+        </div>
+      </div>
+
+      <label class="checkbox-label">
+        <input id="register-terms" type="checkbox" required />
+        Acepto los términos y condiciones
+      </label>
+
+      <button class="primary-button" type="submit">Crear cuenta</button>
+
+      <p id="register-message" class="form-message" aria-live="polite"></p>
+
+      <p class="auth-link">
+        ¿Ya tienes una cuenta?
+        <button type="button" data-route="login">Inicia sesión</button>
+      </p>
+    </form>
+  </section>
+</main>

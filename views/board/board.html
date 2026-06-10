@@ -1,0 +1,106 @@
+<section>
+  <header class="page-header">
+    <div>
+      <h1>Tablero de estrategia de producto</h1>
+      <p>Planificación trimestral y desarrollo del roadmap.</p>
+    </div>
+  </header>
+
+  <div class="board-toolbar">
+    <input id="task-search" class="search-input" type="search" placeholder="Buscar tareas..." />
+    <button id="create-task-button" class="primary-button" type="button">+ Crear tarea</button>
+  </div>
+
+  <section class="board-grid">
+    <article class="board-column">
+      <div class="column-header">
+        <h2>Por hacer</h2>
+        <span class="column-count">2</span>
+      </div>
+
+      <button class="task-card" type="button" data-task-title="Análisis de entrevistas">
+        <span class="status-badge">Investigación</span>
+        <h3>Análisis de entrevistas</h3>
+        <p>Sintetizar los hallazgos de las entrevistas realizadas.</p>
+        <small>📅 24 de octubre</small>
+      </button>
+
+      <button class="task-card" type="button" data-task-title="Actualizar navegación móvil">
+        <span class="status-badge">Diseño</span>
+        <h3>Actualizar navegación móvil</h3>
+        <p>Explorar patrones de pestañas para la próxima versión.</p>
+        <small>💬 3 comentarios</small>
+      </button>
+    </article>
+
+    <article class="board-column">
+      <div class="column-header">
+        <h2>En progreso</h2>
+        <span class="column-count">1</span>
+      </div>
+
+      <button class="task-card highlight" type="button" data-task-title="Actualizar documentación de API">
+        <span class="status-badge">Ingeniería</span>
+        <h3>Actualizar documentación de API</h3>
+        <p>Documentar las rutas y respuestas principales.</p>
+        <small>☑ 8/12 tareas</small>
+      </button>
+    </article>
+
+    <article class="board-column">
+      <div class="column-header">
+        <h2>Finalizadas</h2>
+        <span class="column-count">1</span>
+      </div>
+
+      <button class="task-card done" type="button" data-task-title="Auditoría de accesibilidad">
+        <span class="status-badge">QA</span>
+        <h3>Auditoría de accesibilidad</h3>
+        <p>Revisión de cumplimiento completada.</p>
+        <small>Completada el 18 de octubre</small>
+      </button>
+    </article>
+  </section>
+
+  <aside id="task-panel" class="task-panel hidden" aria-label="Detalle de tarea">
+    <div class="task-panel-header">
+      <div>
+        <small class="muted">ZT 1042 · En progreso</small>
+        <h2 id="task-panel-title">Detalle de tarea</h2>
+      </div>
+      <button id="close-task-panel" class="icon-button" type="button" aria-label="Cerrar">✕</button>
+    </div>
+
+    <form id="task-detail-form" class="task-panel-form">
+      <div class="form-group">
+        <label for="task-priority">Prioridad</label>
+        <select id="task-priority">
+          <option>Crítica</option>
+          <option>Alta</option>
+          <option selected>Media</option>
+          <option>Baja</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="task-date">Fecha límite</label>
+        <input id="task-date" type="date" />
+      </div>
+
+      <div class="form-group">
+        <label for="task-assignee">Responsable</label>
+        <input id="task-assignee" type="text" value="John Doe" />
+      </div>
+
+      <div class="form-group">
+        <label for="task-description">Descripción</label>
+        <textarea id="task-description" rows="8">Actualiza la información necesaria para completar esta tarea.</textarea>
+      </div>
+
+      <div class="panel-actions">
+        <button class="secondary-button" type="button" id="draft-task-button">Guardar borrador</button>
+        <button class="primary-button" type="submit">Guardar cambios</button>
+      </div>
+    </form>
+  </aside>
+</section>
