@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TaskManager | Equipos</title>
+  <link rel="stylesheet" href="../../css/global.css" />
+  <link rel="stylesheet" href="../../css/components.css" />
+  <link rel="stylesheet" href="../../css/modules/teams.css" />
+  <link rel="stylesheet" href="../../css/responsive.css" />
+</head>
+<body>
+<div class="app-shell">
+  <div id="sidebar-container"></div>
+  <main class="page-content">
+<section>
+  <header class="page-header">
+    <div>
+      <h1>Equipos</h1>
+      <p>Administra los integrantes y roles de tu equipo de trabajo.</p>
+    </div>
+  </header>
+
+  <section class="teams-summary">
+    <article class="card summary-card">
+      <h3>Miembros activos</h3>
+      <strong id="active-members-count">0</strong>
+    </article>
+
+    <article class="card summary-card">
+      <h3>Administradores</h3>
+      <strong id="admin-count">0</strong>
+    </article>
+
+    <article class="card summary-card">
+      <h3>Desarrolladores</h3>
+      <strong id="developer-count">0</strong>
+    </article>
+  </section>
+
+  <section class="teams-layout">
+    <article class="card">
+      <h2>Agregar integrante</h2>
+      <p class="muted compact">Registra un miembro y asigna su rol inicial.</p>
+
+      <form id="member-form" class="member-form">
+        <div class="form-group">
+          <label for="member-name">Nombre completo</label>
+          <input id="member-name" type="text" placeholder="Nombre del integrante" required />
+        </div>
+
+        <div class="form-group">
+          <label for="member-email">Correo electrónico</label>
+          <input id="member-email" type="email" placeholder="correo@ejemplo.com" required />
+        </div>
+
+        <div class="form-group">
+          <label for="member-role">Rol</label>
+          <select id="member-role">
+            <option>Administrador</option>
+            <option selected>Desarrollador</option>
+            <option>Diseñador</option>
+            <option>Documentación</option>
+          </select>
+        </div>
+
+        <button class="primary-button" type="submit">Agregar miembro</button>
+      </form>
+    </article>
+
+    <article class="card">
+      <div class="members-toolbar">
+        <div>
+          <h2>Miembros del equipo</h2>
+          <p class="muted compact">Consulta, busca y modifica los roles.</p>
+        </div>
+
+        <input id="member-search" type="search" placeholder="Buscar por nombre o correo..." />
+      </div>
+
+      <div class="members-table-wrapper">
+        <table class="members-table">
+          <thead>
+            <tr>
+              <th>Integrante</th>
+              <th>Rol</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="members-table-body"></tbody>
+        </table>
+
+        <p id="members-empty-state" class="empty-state hidden">No se encontraron integrantes.</p>
+      </div>
+    </article>
+  </section>
+</section>
+
+  </main>
+</div>
+
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+  <script src="../../js/core/app.js"></script>
+  <script src="../../js/pages/teams.js"></script>
+</body>
+</html>

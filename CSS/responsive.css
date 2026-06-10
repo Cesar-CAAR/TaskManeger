@@ -1,0 +1,62 @@
+@media (max-width: 1000px) {
+  .board-grid,
+  .settings-grid,
+  .teams-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .app-shell {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    min-height: auto;
+    gap: 16px;
+  }
+
+  .nav-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .sidebar-footer {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .page-content {
+    padding: 19px;
+  }
+
+  .page-header,
+  .board-toolbar,
+  .members-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .search-input,
+  .members-toolbar input {
+    max-width: none;
+  }
+
+  .teams-summary {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 590px) {
+  .auth-row,
+  .profile-form {
+    grid-template-columns: 1fr;
+  }
+
+  .full-width {
+    grid-column: auto;
+  }
+
+  .nav-list {
+    grid-template-columns: 1fr;
+  }
+}
