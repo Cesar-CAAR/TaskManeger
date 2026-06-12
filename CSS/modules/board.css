@@ -20,6 +20,8 @@
 }
 
 .board-column {
+  display: flex;
+  flex-direction: column;
   min-height: 510px;
   padding: 14px;
   border-radius: var(--radius);
@@ -56,11 +58,33 @@
   box-shadow: 0 3px 10px rgba(15, 23, 42, 0.05);
   color: var(--text);
   text-align: left;
+  cursor: grab;
+  user-select: none;
 }
 
 .task-card:hover {
   transform: translateY(-1px);
   box-shadow: var(--shadow);
+}
+
+.task-card:active {
+  cursor: grabbing;
+}
+
+.task-card.is-dragging {
+  opacity: 0.45;
+  transform: scale(0.98);
+  box-shadow: var(--shadow);
+}
+
+.board-column.drag-over {
+  outline: 2px dashed var(--primary);
+  outline-offset: -4px;
+  background: rgba(79, 70, 229, 0.08);
+}
+
+.board-grid.is-dragging .task-card:not(.is-dragging) {
+  pointer-events: none;
 }
 
 .task-card h3 {
@@ -126,6 +150,8 @@
 .column-tasks {
   display: flex;
   flex-direction: column;
+  flex: 1;
+  min-height: 120px;
 }
 
 .task-create-dialog {

@@ -27,7 +27,7 @@
   </div>
 
   <section class="board-grid">
-    <article class="board-column">
+    <article class="board-column" data-status="todo">
       <div class="column-header">
         <h2>Por hacer</h2>
         <span id="count-todo" class="column-count">0</span>
@@ -35,7 +35,7 @@
       <div id="column-todo" class="column-tasks"></div>
     </article>
 
-    <article class="board-column">
+    <article class="board-column" data-status="in_progress">
       <div class="column-header">
         <h2>En progreso</h2>
         <span id="count-in-progress" class="column-count">0</span>
@@ -43,7 +43,7 @@
       <div id="column-in-progress" class="column-tasks"></div>
     </article>
 
-    <article class="board-column">
+    <article class="board-column" data-status="done">
       <div class="column-header">
         <h2>Finalizadas</h2>
         <span id="count-done" class="column-count">0</span>

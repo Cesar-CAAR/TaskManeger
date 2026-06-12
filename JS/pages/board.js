@@ -16,6 +16,8 @@
   let tasks = [];
   let selectedTaskId = null;
   let searchTerm = "";
+  let draggedTaskId = null;
+  let suppressClick = false;
 
   TaskManager.ready.then(function () {
     if (!TaskManager.requireSession()) return;
@@ -32,6 +34,7 @@
     const createDialog = document.getElementById("create-task-dialog");
     const createForm = document.getElementById("create-task-form");
 
+    initDragDrop();
     renderBoard();
 
     search.addEventListener("input", function () {
@@ -94,6 +97,73 @@
     });
   }
 
+  function initDragDrop() {
+    const boardGrid = document.querySelector(".board-grid");
+    if (!boardGrid) return;
+
+    boardGrid.addEventListener("dragover", function (event) {
+      if (!draggedTaskId || searchTerm) return;
+      event.preventDefault();
+      event.dataTransfer.dropEffect = "move";
+
+      const column = event.target.closest(".board-column");
+      document.querySelectorAll(".board-column.drag-over").forEach(function (el) {
+        el.classList.remove("drag-over");
+      });
+      if (column) {
+        column.classList.add("drag-over");
+      }
+    }, true);
+
+    boardGrid.addEventListener("drop", function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      const taskId = draggedTaskId || event.dataTransfer.getData("text/plain");
+      if (!taskId || searchTerm) return;
+
+      const column = event.target.closest(".board-column");
+      if (!column || !column.dataset.status) return;
+
+      moveTaskToColumn(taskId, column.dataset.status);
+      draggedTaskId = null;
+      boardGrid.classList.remove("is-dragging");
+      document.querySelectorAll(".board-column").forEach(function (el) {
+        el.classList.remove("drag-over");
+      });
+    });
+
+    boardGrid.addEventListener("dragleave", function (event) {
+      if (!boardGrid.contains(event.relatedTarget)) {
+        document.querySelectorAll(".board-column").forEach(function (el) {
+          el.classList.remove("drag-over");
+        });
+      }
+    });
+  }
+
+  function moveTaskToColumn(taskId, newStatus) {
+    const task = TaskManager.getTaskById(taskId);
+    if (!task || task.status === newStatus) return;
+
+    TaskManager.saveTask({ ...task, status: newStatus });
+    tasks = TaskManager.getTasks();
+    renderBoard();
+    TaskManager.showToast("Tarea movida a " + STATUS_LABELS[newStatus] + ".", "success");
+  }
+
+  function clearDragState() {
+    draggedTaskId = null;
+    const boardGrid = document.querySelector(".board-grid");
+    if (boardGrid) boardGrid.classList.remove("is-dragging");
+    document.querySelectorAll(".board-column").forEach(function (column) {
+      column.classList.remove("drag-over");
+    });
+    document.querySelectorAll(".task-card.is-dragging").forEach(function (card) {
+      card.classList.remove("is-dragging");
+    });
+  }
+
   function renderBoard() {
     COLUMNS.forEach(function (column) {
       const container = document.getElementById(column.containerId);
@@ -111,9 +181,46 @@
         return renderTaskCard(task);
       }).join("");
 
+      const canDrag = !searchTerm;
+
       container.querySelectorAll(".task-card").forEach(function (card) {
+        card.draggable = canDrag;
+
+        if (canDrag) {
+          card.addEventListener("dragstart", function (event) {
+            draggedTaskId = card.dataset.taskId;
+            card.classList.add("is-dragging");
+            const boardGrid = document.querySelector(".board-grid");
+            if (boardGrid) boardGrid.classList.add("is-dragging");
+            event.dataTransfer.effectAllowed = "move";
+            event.dataTransfer.setData("text/plain", draggedTaskId);
+          });
+
+          card.addEventListener("dragover", function (event) {
+            if (!draggedTaskId || searchTerm) return;
+            event.preventDefault();
+            event.dataTransfer.dropEffect = "move";
+          });
+
+          card.addEventListener("dragend", function () {
+            clearDragState();
+            suppressClick = true;
+            setTimeout(function () {
+              suppressClick = false;
+            }, 100);
+          });
+        }
+
         card.addEventListener("click", function () {
+          if (suppressClick) return;
           openTaskPanel(card.dataset.taskId);
+        });
+
+        card.addEventListener("keydown", function (event) {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            openTaskPanel(card.dataset.taskId);
+          }
         });
       });
     });
@@ -131,12 +238,12 @@
       meta = "Completada";
     }
 
-    return `<button class="${cardClass.join(" ")}" type="button" data-task-id="${task.id}">
+    return `<div class="${cardClass.join(" ")}" data-task-id="${task.id}" role="button" tabindex="0" aria-grabbed="false">
       <span class="status-badge">${TaskManager.escapeHtml(task.category || "General")}</span>
       <h3>${TaskManager.escapeHtml(task.title)}</h3>
       <p>${TaskManager.escapeHtml(task.description || "Sin descripción")}</p>
       ${meta ? `<small>${TaskManager.escapeHtml(meta)}</small>` : ""}
-    </button>`;
+    </div>`;
   }
 
   function formatDate(dateStr) {
