@@ -1,0 +1,74 @@
+{
+  "users": [],
+  "session": null,
+  "members": [
+    {
+      "id": "seed-member-1",
+      "name": "Ana Martínez",
+      "email": "ana@taskmanager.com",
+      "role": "Administrador",
+      "status": "Activo"
+    },
+    {
+      "id": "seed-member-2",
+      "name": "Luis Hernández",
+      "email": "luis@taskmanager.com",
+      "role": "Desarrollador",
+      "status": "Activo"
+    },
+    {
+      "id": "seed-member-3",
+      "name": "María López",
+      "email": "maria@taskmanager.com",
+      "role": "Diseñador",
+      "status": "Activo"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "seed-task-1",
+      "title": "Análisis de entrevistas",
+      "description": "Sintetizar los hallazgos de las entrevistas realizadas.",
+      "status": "todo",
+      "category": "Investigación",
+      "priority": "Media",
+      "dueDate": "2025-10-24",
+      "assignee": "",
+      "createdAt": "2025-10-01T00:00:00.000Z"
+    },
+    {
+      "id": "seed-task-2",
+      "title": "Actualizar navegación móvil",
+      "description": "Explorar patrones de pestañas para la próxima versión.",
+      "status": "todo",
+      "category": "Diseño",
+      "priority": "Media",
+      "dueDate": "",
+      "assignee": "",
+      "createdAt": "2025-10-05T00:00:00.000Z"
+    },
+    {
+      "id": "seed-task-3",
+      "title": "Actualizar documentación de API",
+      "description": "Documentar las rutas y respuestas principales.",
+      "status": "in_progress",
+      "category": "Ingeniería",
+      "priority": "Alta",
+      "dueDate": "",
+      "assignee": "",
+      "createdAt": "2025-10-10T00:00:00.000Z"
+    },
+    {
+      "id": "seed-task-4",
+      "title": "Auditoría de accesibilidad",
+      "description": "Revisión de cumplimiento completada.",
+      "status": "done",
+      "category": "QA",
+      "priority": "Media",
+      "dueDate": "",
+      "assignee": "",
+      "createdAt": "2025-10-18T00:00:00.000Z"
+    }
+  ],
+  "theme": "light"
+}
