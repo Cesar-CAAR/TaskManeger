@@ -80,6 +80,7 @@ flowchart TD
 - Requiere sesión activa.
 - Muestra y permite editar el perfil del usuario logueado (nombre, apellido, correo, bio).
 - Permite cambiar el tema claro/oscuro.
+- Permite cambiar el idioma (Español / English); la preferencia se aplica en toda la app.
 
 ### 6. Cerrar sesión
 
@@ -113,7 +114,8 @@ Estructura simplificada:
   "session": "userId",
   "tasks": [{ "id", "userId", "title", "status", "..." }],
   "members": [{ "id", "userId", "name", "email", "role", "status" }],
-  "theme": "light"
+  "theme": "light",
+  "language": "es"
 }
 ```
 

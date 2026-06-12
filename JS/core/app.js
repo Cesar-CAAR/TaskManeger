@@ -51,17 +51,32 @@
       session: null,
       members: [],
       tasks: [],
-      theme: "light"
+      theme: "light",
+      language: "es"
     };
+  }
+
+  function normalizeMember(member) {
+    const normalized = { ...member };
+    if (window.I18n) {
+      normalized.role = I18n.normalizeRole(member.role);
+      if (member.status === "Activo" || member.status === "Active") {
+        normalized.status = "active";
+      }
+    }
+    return normalized;
   }
 
   function normalizeDb(stored) {
     const db = {
       users: [],
       session: null,
-      members: Array.isArray(stored.members) ? stored.members : [],
+      members: Array.isArray(stored.members)
+        ? stored.members.map(normalizeMember)
+        : [],
       tasks: Array.isArray(stored.tasks) ? stored.tasks : [],
-      theme: stored.theme === "dark" ? "dark" : "light"
+      theme: stored.theme === "dark" ? "dark" : "light",
+      language: stored.language === "en" ? "en" : "es"
     };
 
     if (Array.isArray(stored.users)) {
@@ -161,7 +176,8 @@
           session: seed.session ?? null,
           members: Array.isArray(seed.members) ? seed.members : [],
           tasks: Array.isArray(seed.tasks) ? seed.tasks : [],
-          theme: seed.theme === "dark" ? "dark" : "light"
+          theme: seed.theme === "dark" ? "dark" : "light",
+          language: seed.language === "en" ? "en" : "es"
         }));
       } catch (error) {
         console.warn("Usando base de datos vacía:", error);
@@ -177,6 +193,31 @@
 
   function applyStoredTheme() {
     document.body.classList.toggle("dark-theme", getDb().theme === "dark");
+  }
+
+  function getLanguage() {
+    return getDb().language === "en" ? "en" : "es";
+  }
+
+  function saveLanguage(language) {
+    const db = getDb();
+    db.language = language === "en" ? "en" : "es";
+    saveDb(db);
+    applyI18n();
+  }
+
+  function t(key, params) {
+    if (!window.I18n) return key;
+    return I18n.translate(getLanguage(), key, params);
+  }
+
+  function applyI18n() {
+    if (!window.I18n) return;
+    I18n.applyToPage(getLanguage(), t);
+  }
+
+  function getLocaleTag() {
+    return getLanguage() === "en" ? "en-US" : "es-ES";
   }
 
   function getCurrentUserId() {
@@ -245,29 +286,29 @@
       : "Productivity";
 
     const links = [
-      { id: "board", label: "▦ Tablero", href: "../board/board.html" },
-      { id: "teams", label: "♟ Equipos", href: "../teams/teams.html" },
-      { id: "settings", label: "⚙ Configuración", href: "../settings/settings.html" }
+      { id: "board", labelKey: "nav.board", href: "../board/board.html" },
+      { id: "teams", labelKey: "nav.teams", href: "../teams/teams.html" },
+      { id: "settings", labelKey: "nav.settings", href: "../settings/settings.html" }
     ];
 
     container.innerHTML = `
       <aside class="sidebar">
         <div>
-          <div class="brand"><h2>TaskManager</h2><p>${userLabel}</p></div>
-          <nav class="nav-list" aria-label="Navegación principal">
+          <div class="brand"><h2>${escapeHtml(t("app.name"))}</h2><p>${userLabel}</p></div>
+          <nav class="nav-list" aria-label="Main navigation">
             ${links.map(function (link) {
-              return `<a class="nav-link ${link.id === activePage ? "active" : ""}" href="${link.href}">${link.label}</a>`;
+              return `<a class="nav-link ${link.id === activePage ? "active" : ""}" href="${link.href}">${t(link.labelKey)}</a>`;
             }).join("")}
           </nav>
         </div>
         <div class="sidebar-footer">
-          <button class="nav-button" type="button" id="help-button">? Ayuda</button>
-          <button class="nav-button" type="button" id="logout-button">↪ Cerrar sesión</button>
+          <button class="nav-button" type="button" id="help-button">${t("nav.help")}</button>
+          <button class="nav-button" type="button" id="logout-button">${t("nav.logout")}</button>
         </div>
       </aside>`;
 
     document.getElementById("help-button").addEventListener("click", function () {
-      showToast("Centro de ayuda en construcción.");
+      showToast(t("toast.help"));
     });
 
     document.getElementById("logout-button").addEventListener("click", function () {
@@ -404,7 +445,12 @@
     getTaskById,
     saveTask,
     deleteTask,
-    saveTheme
+    saveTheme,
+    getLanguage,
+    saveLanguage,
+    t,
+    applyI18n,
+    getLocaleTag
   };
 
   initDatabase();

@@ -2,6 +2,8 @@
   "use strict";
 
   TaskManager.ready.then(function () {
+    TaskManager.applyI18n();
+
     const form = document.getElementById("register-form");
 
     form.addEventListener("submit", function (event) {
@@ -12,7 +14,7 @@
       const message = document.getElementById("register-message");
 
       if (password !== confirm) {
-        message.textContent = "Las contraseñas no coinciden.";
+        message.textContent = TaskManager.t("register.passwordMismatch");
         message.className = "form-message error";
         return;
       }
@@ -26,12 +28,12 @@
       });
 
       if (!user) {
-        message.textContent = "Ese correo ya está registrado. Inicia sesión o usa otro correo.";
+        message.textContent = TaskManager.t("register.emailTaken");
         message.className = "form-message error";
         return;
       }
 
-      message.textContent = "Cuenta registrada correctamente. Redirigiendo al inicio de sesión...";
+      message.textContent = TaskManager.t("register.success");
       message.className = "form-message success";
 
       setTimeout(function () {
