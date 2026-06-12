@@ -18,6 +18,8 @@
   let searchTerm = "";
 
   TaskManager.ready.then(function () {
+    if (!TaskManager.requireSession()) return;
+
     TaskManager.renderSidebar("board");
     initBoard();
   });
@@ -54,6 +56,7 @@
 
       if (!title) return;
 
+      const currentUser = TaskManager.getCurrentUser();
       const task = {
         id: TaskManager.createId(),
         title,
@@ -62,7 +65,7 @@
         category: "General",
         priority: "Media",
         dueDate: "",
-        assignee: "",
+        assignee: currentUser ? (currentUser.name + " " + (currentUser.lastname || "")).trim() : "",
         createdAt: new Date().toISOString()
       };
 

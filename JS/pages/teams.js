@@ -2,6 +2,8 @@
   "use strict";
 
   TaskManager.ready.then(function () {
+    if (!TaskManager.requireSession()) return;
+
     TaskManager.renderSidebar("teams");
 
     let members = TaskManager.getMembers();

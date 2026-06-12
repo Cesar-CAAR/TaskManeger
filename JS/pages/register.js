@@ -17,14 +17,19 @@
         return;
       }
 
-      TaskManager.saveAccount({
-        id: TaskManager.createId(),
+      const user = TaskManager.registerUser({
         name: document.getElementById("register-name").value.trim(),
         lastname: document.getElementById("register-lastname").value.trim(),
         email: document.getElementById("register-email").value.trim(),
         password,
         bio: ""
       });
+
+      if (!user) {
+        message.textContent = "Ese correo ya está registrado. Inicia sesión o usa otro correo.";
+        message.className = "form-message error";
+        return;
+      }
 
       message.textContent = "Cuenta registrada correctamente. Redirigiendo al inicio de sesión...";
       message.className = "form-message success";
