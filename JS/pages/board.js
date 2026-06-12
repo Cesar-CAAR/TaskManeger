@@ -1,17 +1,22 @@
 (function () {
   "use strict";
 
-  const STATUS_LABELS = {
-    todo: "Por hacer",
-    in_progress: "En progreso",
-    done: "Finalizada"
-  };
-
   const COLUMNS = [
     { status: "todo", containerId: "column-todo", countId: "count-todo" },
     { status: "in_progress", containerId: "column-in-progress", countId: "count-in-progress" },
     { status: "done", containerId: "column-done", countId: "count-done" }
   ];
+
+  const PRIORITY_LEGACY = {
+    Crítica: "critical",
+    Alta: "high",
+    Media: "medium",
+    Baja: "low",
+    Critical: "critical",
+    High: "high",
+    Medium: "medium",
+    Low: "low"
+  };
 
   let tasks = [];
   let selectedTaskId = null;
@@ -19,9 +24,18 @@
   let draggedTaskId = null;
   let suppressClick = false;
 
+  function statusLabel(status) {
+    return TaskManager.t("task.status." + status);
+  }
+
+  function normalizePriority(priority) {
+    return PRIORITY_LEGACY[priority] || priority || "medium";
+  }
+
   TaskManager.ready.then(function () {
     if (!TaskManager.requireSession()) return;
 
+    TaskManager.applyI18n();
     TaskManager.renderSidebar("board");
     initBoard();
   });
@@ -66,7 +80,7 @@
         description: "",
         status,
         category: "General",
-        priority: "Media",
+        priority: "medium",
         dueDate: "",
         assignee: currentUser ? (currentUser.name + " " + (currentUser.lastname || "")).trim() : "",
         createdAt: new Date().toISOString()
@@ -76,7 +90,7 @@
       tasks = TaskManager.getTasks();
       createDialog.close();
       renderBoard();
-      TaskManager.showToast("Tarea creada.", "success");
+      TaskManager.showToast(TaskManager.t("board.taskCreated"), "success");
     });
 
     document.getElementById("close-task-panel").addEventListener("click", function () {
@@ -93,7 +107,7 @@
 
     document.getElementById("draft-task-button").addEventListener("click", function () {
       saveCurrentTask();
-      TaskManager.showToast("Borrador guardado.", "success");
+      TaskManager.showToast(TaskManager.t("board.draftSaved"), "success");
     });
   }
 
@@ -149,7 +163,7 @@
     TaskManager.saveTask({ ...task, status: newStatus });
     tasks = TaskManager.getTasks();
     renderBoard();
-    TaskManager.showToast("Tarea movida a " + STATUS_LABELS[newStatus] + ".", "success");
+    TaskManager.showToast(TaskManager.t("board.taskMoved", { status: statusLabel(newStatus) }), "success");
   }
 
   function clearDragState() {
@@ -235,13 +249,13 @@
     if (task.dueDate) {
       meta = formatDate(task.dueDate);
     } else if (task.status === "done") {
-      meta = "Completada";
+      meta = TaskManager.t("task.completed");
     }
 
     return `<div class="${cardClass.join(" ")}" data-task-id="${task.id}" role="button" tabindex="0" aria-grabbed="false">
       <span class="status-badge">${TaskManager.escapeHtml(task.category || "General")}</span>
       <h3>${TaskManager.escapeHtml(task.title)}</h3>
-      <p>${TaskManager.escapeHtml(task.description || "Sin descripción")}</p>
+      <p>${TaskManager.escapeHtml(task.description || TaskManager.t("task.noDescription"))}</p>
       ${meta ? `<small>${TaskManager.escapeHtml(meta)}</small>` : ""}
     </div>`;
   }
@@ -249,7 +263,7 @@
   function formatDate(dateStr) {
     if (!dateStr) return "";
     const date = new Date(dateStr + "T00:00:00");
-    return date.toLocaleDateString("es-ES", { day: "numeric", month: "long" });
+    return date.toLocaleDateString(TaskManager.getLocaleTag(), { day: "numeric", month: "long" });
   }
 
   function openTaskPanel(taskId) {
@@ -259,14 +273,13 @@
     selectedTaskId = taskId;
     const panel = document.getElementById("task-panel");
 
-    document.getElementById("task-panel-meta").textContent =
-      STATUS_LABELS[task.status] || "Detalle";
+    document.getElementById("task-panel-meta").textContent = statusLabel(task.status);
     document.getElementById("task-panel-title").textContent = task.title;
     document.getElementById("task-id").value = task.id;
     document.getElementById("task-title").value = task.title;
     document.getElementById("task-status").value = task.status;
     document.getElementById("task-category").value = task.category || "";
-    document.getElementById("task-priority").value = task.priority || "Media";
+    document.getElementById("task-priority").value = normalizePriority(task.priority);
     document.getElementById("task-date").value = task.dueDate || "";
     document.getElementById("task-assignee").value = task.assignee || "";
     document.getElementById("task-description").value = task.description || "";
@@ -294,6 +307,6 @@
     TaskManager.saveTask(updated);
     tasks = TaskManager.getTasks();
     renderBoard();
-    TaskManager.showToast("Cambios guardados.", "success");
+    TaskManager.showToast(TaskManager.t("board.changesSaved"), "success");
   }
 })();

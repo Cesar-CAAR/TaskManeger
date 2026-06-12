@@ -2,6 +2,8 @@
   "use strict";
 
   TaskManager.ready.then(function () {
+    TaskManager.applyI18n();
+
     const form = document.getElementById("login-form");
     const emailInput = document.getElementById("login-email");
     const message = document.getElementById("login-message");
@@ -14,7 +16,7 @@
       const user = TaskManager.findUserByCredentials(email, password);
 
       if (!user) {
-        message.textContent = "El correo o la contraseña no coinciden con ninguna cuenta registrada.";
+        message.textContent = TaskManager.t("login.error");
         message.className = "form-message error";
         return;
       }
