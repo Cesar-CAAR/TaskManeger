@@ -1,0 +1,89 @@
+.teams-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.summary-card h3 {
+  margin-bottom: 7px;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.summary-card strong {
+  font-size: 25px;
+}
+
+.teams-layout {
+  display: grid;
+  grid-template-columns: 310px minmax(0, 1fr);
+  gap: 17px;
+}
+
+.member-form {
+  display: grid;
+  gap: 13px;
+  margin-top: 14px;
+}
+
+.members-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.members-toolbar input {
+  max-width: 330px;
+}
+
+.members-table-wrapper {
+  overflow-x: auto;
+}
+
+.members-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.members-table th,
+.members-table td {
+  padding: 12px 10px;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.members-table th {
+  color: var(--text-muted);
+}
+
+.member-name {
+  font-weight: 700;
+}
+
+.member-email {
+  margin-top: 3px;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.members-table select {
+  min-width: 135px;
+  padding: 8px;
+}
+
+.members-table .danger-button {
+  padding: 7px 9px;
+  font-size: 12px;
+}
+
+.empty-state {
+  padding: 18px;
+  color: var(--text-muted);
+  font-size: 14px;
+  text-align: center;
+}

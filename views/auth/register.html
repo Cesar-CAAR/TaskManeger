@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n-title="page.register.title">TaskManager | Registro</title>
+  <link rel="stylesheet" href="../../css/global.css" />
+  <link rel="stylesheet" href="../../css/components.css" />
+  <link rel="stylesheet" href="../../css/modules/auth.css" />
+  <link rel="stylesheet" href="../../css/responsive.css" />
+</head>
+<body>
+<main class="auth-page">
+  <section class="auth-container register-container">
+    <h1 class="auth-logo">TaskManager</h1>
+    <p class="auth-subtitle" data-i18n="register.subtitle">Crea una cuenta para organizar tu trabajo.</p>
+
+    <form id="register-form" class="auth-card">
+      <div>
+        <h2 data-i18n="register.heading">Crear cuenta</h2>
+        <p class="muted compact" data-i18n="register.hint">Completa tus datos para registrar un perfil.</p>
+      </div>
+
+      <div class="auth-row">
+        <div class="form-group">
+          <label for="register-name" data-i18n="register.name">Nombre</label>
+          <input id="register-name" type="text" data-i18n-placeholder="register.name" placeholder="Nombre" required />
+        </div>
+
+        <div class="form-group">
+          <label for="register-lastname" data-i18n="register.lastname">Apellido</label>
+          <input id="register-lastname" type="text" data-i18n-placeholder="register.lastname" placeholder="Apellido" required />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="register-email" data-i18n="register.email">Correo electrónico</label>
+        <input id="register-email" type="email" data-i18n-placeholder="login.email" placeholder="nombre@correo.com" required />
+      </div>
+
+      <div class="auth-row">
+        <div class="form-group">
+          <label for="register-password" data-i18n="register.password">Contraseña</label>
+          <input id="register-password" type="password" placeholder="********" minlength="6" required />
+        </div>
+
+        <div class="form-group">
+          <label for="register-confirm" data-i18n="register.confirm">Confirmar contraseña</label>
+          <input id="register-confirm" type="password" placeholder="********" minlength="6" required />
+        </div>
+      </div>
+
+      <label class="checkbox-label">
+        <input id="register-terms" type="checkbox" required />
+        <span data-i18n="register.terms">Acepto los términos y condiciones</span>
+      </label>
+
+      <button class="primary-button" type="submit" data-i18n="register.submit">Crear cuenta</button>
+
+      <p id="register-message" class="form-message" aria-live="polite"></p>
+
+      <p class="auth-link">
+        <span data-i18n="register.noAccount">¿Ya tienes una cuenta?</span>
+        <a href="login.html" data-i18n="register.loginLink">Inicia sesión</a>
+      </p>
+    </form>
+  </section>
+</main>
+
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+  <script src="../../js/core/i18n.js"></script>
+  <script src="../../js/core/app.js"></script>
+  <script src="../../js/pages/register.js"></script>
+</body>
+</html>

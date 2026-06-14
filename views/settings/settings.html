@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n-title="page.settings.title">TaskManager | Configuración</title>
+  <link rel="stylesheet" href="../../css/global.css" />
+  <link rel="stylesheet" href="../../css/components.css" />
+  <link rel="stylesheet" href="../../css/modules/settings.css" />
+  <link rel="stylesheet" href="../../css/responsive.css" />
+</head>
+<body>
+<div class="app-shell">
+  <div id="sidebar-container"></div>
+  <main class="page-content">
+<section>
+  <header class="page-header">
+    <div>
+      <h1 data-i18n="settings.heading">Configuración</h1>
+      <p data-i18n="settings.subtitle">Administra tu perfil, preferencias y seguridad desde una sola sección.</p>
+    </div>
+  </header>
+
+  <section class="settings-grid">
+    <article class="card settings-card">
+      <h2 data-i18n="settings.profile">Información del perfil</h2>
+      <p data-i18n="settings.profileHint">Actualiza tus datos personales.</p>
+
+      <form id="profile-form">
+        <div class="profile-form">
+          <div class="form-group">
+            <label for="profile-name" data-i18n="settings.name">Nombre</label>
+            <input id="profile-name" type="text" data-i18n-placeholder="settings.name" placeholder="Nombre" />
+          </div>
+
+          <div class="form-group">
+            <label for="profile-lastname" data-i18n="settings.lastname">Apellido</label>
+            <input id="profile-lastname" type="text" data-i18n-placeholder="settings.lastname" placeholder="Apellido" />
+          </div>
+
+          <div class="form-group full-width">
+            <label for="profile-email" data-i18n="settings.email">Correo electrónico</label>
+            <input id="profile-email" type="email" data-i18n-placeholder="login.email" placeholder="nombre@correo.com" />
+          </div>
+
+          <div class="form-group full-width">
+            <label for="profile-bio" data-i18n="settings.bio">Biografía</label>
+            <textarea id="profile-bio" rows="5" data-i18n-placeholder="settings.bioPlaceholder" placeholder="Describe brevemente tu perfil."></textarea>
+          </div>
+        </div>
+
+        <div class="settings-actions">
+          <button class="primary-button" type="submit" data-i18n="settings.saveProfile">Guardar perfil</button>
+        </div>
+      </form>
+    </article>
+
+    <article class="card settings-card">
+      <h2 data-i18n="settings.appearance">Apariencia</h2>
+      <p data-i18n="settings.appearanceHint">Elige el estilo visual de la aplicación.</p>
+      <div class="appearance-options">
+        <button class="secondary-button" type="button" data-theme="light" data-i18n="settings.themeLight">☀ Claro</button>
+        <button class="secondary-button" type="button" data-theme="dark" data-i18n="settings.themeDark">☾ Oscuro</button>
+      </div>
+    </article>
+
+    <article class="card settings-card">
+      <h2 data-i18n="settings.notifications">Preferencias de notificación</h2>
+
+      <label class="notification-row">
+        <span data-i18n="settings.emailNotif">Notificaciones por correo</span>
+        <input type="checkbox" checked />
+      </label>
+
+      <label class="notification-row">
+        <span data-i18n="settings.browserNotif">Notificaciones del navegador</span>
+        <input type="checkbox" checked />
+      </label>
+
+      <label class="notification-row">
+        <span data-i18n="settings.projectActivity">Actividad del proyecto</span>
+        <input type="checkbox" />
+      </label>
+    </article>
+
+    <article class="card settings-card">
+      <h2 data-i18n="settings.workspace">Espacio de trabajo</h2>
+
+      <div class="form-group">
+        <label for="settings-language" data-i18n="settings.language">Idioma</label>
+        <select id="settings-language">
+          <option value="es">Español</option>
+          <option value="en">English</option>
+        </select>
+      </div>
+    </article>
+
+    <article class="card settings-card security-card">
+      <h2 data-i18n="settings.security">Revisión de seguridad</h2>
+      <p data-i18n="settings.securityHint">Tu última actualización de contraseña fue hace tres meses.</p>
+      <button class="secondary-button" type="button" id="security-button" data-i18n="settings.securityBtn">Actualizar seguridad</button>
+    </article>
+  </section>
+</section>
+
+  </main>
+</div>
+
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+  <script src="../../js/core/i18n.js"></script>
+  <script src="../../js/core/app.js"></script>
+  <script src="../../js/pages/settings.js"></script>
+</body>
+</html>

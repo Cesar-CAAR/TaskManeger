@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n-title="page.board.title">TaskManager | Tablero</title>
+  <link rel="stylesheet" href="../../css/global.css" />
+  <link rel="stylesheet" href="../../css/components.css" />
+  <link rel="stylesheet" href="../../css/modules/board.css" />
+  <link rel="stylesheet" href="../../css/responsive.css" />
+</head>
+<body>
+<div class="app-shell">
+  <div id="sidebar-container"></div>
+  <main class="page-content">
+<section>
+  <header class="page-header">
+    <div>
+      <h1 data-i18n="board.heading">Tablero de estrategia de producto</h1>
+      <p data-i18n="board.subtitle">Planificación trimestral y desarrollo del roadmap.</p>
+    </div>
+  </header>
+
+  <div class="board-toolbar">
+    <input id="task-search" class="search-input" type="search" data-i18n-placeholder="board.search" placeholder="Buscar tareas..." />
+    <button id="create-task-button" class="primary-button" type="button" data-i18n="board.create">+ Crear tarea</button>
+  </div>
+
+  <section class="board-grid">
+    <article class="board-column" data-status="todo">
+      <div class="column-header">
+        <h2 data-i18n="board.column.todo">Por hacer</h2>
+        <span id="count-todo" class="column-count">0</span>
+      </div>
+      <div id="column-todo" class="column-tasks"></div>
+    </article>
+
+    <article class="board-column" data-status="in_progress">
+      <div class="column-header">
+        <h2 data-i18n="board.column.in_progress">En progreso</h2>
+        <span id="count-in-progress" class="column-count">0</span>
+      </div>
+      <div id="column-in-progress" class="column-tasks"></div>
+    </article>
+
+    <article class="board-column" data-status="done">
+      <div class="column-header">
+        <h2 data-i18n="board.column.done">Finalizadas</h2>
+        <span id="count-done" class="column-count">0</span>
+      </div>
+      <div id="column-done" class="column-tasks"></div>
+    </article>
+  </section>
+
+  <dialog id="create-task-dialog" class="task-create-dialog">
+    <form id="create-task-form" method="dialog">
+      <h2 data-i18n="board.newTask">Nueva tarea</h2>
+      <div class="form-group">
+        <label for="create-task-title" data-i18n="board.taskTitle">Título</label>
+        <input id="create-task-title" type="text" required data-i18n-placeholder="board.taskTitlePlaceholder" placeholder="Nombre de la tarea" />
+      </div>
+      <div class="form-group">
+        <label for="create-task-status" data-i18n="board.columnLabel">Columna</label>
+        <select id="create-task-status" data-i18n-options="board.column">
+          <option value="todo" data-i18n="board.column.todo">Por hacer</option>
+          <option value="in_progress" data-i18n="board.column.in_progress">En progreso</option>
+          <option value="done" data-i18n="board.column.done">Finalizadas</option>
+        </select>
+      </div>
+      <div class="panel-actions">
+        <button class="secondary-button" type="button" id="cancel-create-task" data-i18n="board.cancel">Cancelar</button>
+        <button class="primary-button" type="submit" data-i18n="board.createBtn">Crear</button>
+      </div>
+    </form>
+  </dialog>
+
+  <aside id="task-panel" class="task-panel hidden" data-i18n-aria="board.panelLabel" aria-label="Detalle de tarea">
+    <div class="task-panel-header">
+      <div>
+        <small id="task-panel-meta" class="muted" data-i18n="board.panelMeta">Detalle</small>
+        <h2 id="task-panel-title" data-i18n="board.panelLabel">Detalle de tarea</h2>
+      </div>
+      <button id="close-task-panel" class="icon-button" type="button" data-i18n-aria="board.close" aria-label="Cerrar">✕</button>
+    </div>
+
+    <form id="task-detail-form" class="task-panel-form">
+      <input id="task-id" type="hidden" />
+
+      <div class="form-group">
+        <label for="task-title" data-i18n="board.taskTitle">Título</label>
+        <input id="task-title" type="text" required />
+      </div>
+
+      <div class="form-group">
+        <label for="task-status" data-i18n="board.columnLabel">Columna</label>
+        <select id="task-status" data-i18n-options="board.column">
+          <option value="todo" data-i18n="board.column.todo">Por hacer</option>
+          <option value="in_progress" data-i18n="board.column.in_progress">En progreso</option>
+          <option value="done" data-i18n="board.column.done">Finalizadas</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="task-category" data-i18n="board.category">Categoría</label>
+        <input id="task-category" type="text" data-i18n-placeholder="board.categoryPlaceholder" placeholder="Investigación, Diseño..." />
+      </div>
+
+      <div class="form-group">
+        <label for="task-priority" data-i18n="board.priority">Prioridad</label>
+        <select id="task-priority" data-i18n-options="task.priority">
+          <option value="critical" data-i18n="task.priority.critical">Crítica</option>
+          <option value="high" data-i18n="task.priority.high">Alta</option>
+          <option value="medium" data-i18n="task.priority.medium" selected>Media</option>
+          <option value="low" data-i18n="task.priority.low">Baja</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="task-date" data-i18n="board.dueDate">Fecha límite</label>
+        <input id="task-date" type="date" />
+      </div>
+
+      <div class="form-group">
+        <label for="task-assignee" data-i18n="board.assignee">Responsable</label>
+        <input id="task-assignee" type="text" data-i18n-placeholder="board.assigneePlaceholder" placeholder="Nombre del responsable" />
+      </div>
+
+      <div class="form-group">
+        <label for="task-description" data-i18n="board.description">Descripción</label>
+        <textarea id="task-description" rows="6" data-i18n-placeholder="board.descriptionPlaceholder" placeholder="Describe la tarea..."></textarea>
+      </div>
+
+      <div class="panel-actions">
+        <button class="secondary-button" type="button" id="draft-task-button" data-i18n="board.saveDraft">Guardar borrador</button>
+        <button class="primary-button" type="submit" data-i18n="board.saveChanges">Guardar cambios</button>
+      </div>
+    </form>
+  </aside>
+</section>
+
+  </main>
+</div>
+
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+  <script src="../../js/core/i18n.js"></script>
+  <script src="../../js/core/app.js"></script>
+  <script src="../../js/pages/board.js"></script>
+</body>
+</html>

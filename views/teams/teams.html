@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n-title="page.teams.title">TaskManager | Equipos</title>
+  <link rel="stylesheet" href="../../css/global.css" />
+  <link rel="stylesheet" href="../../css/components.css" />
+  <link rel="stylesheet" href="../../css/modules/teams.css" />
+  <link rel="stylesheet" href="../../css/responsive.css" />
+</head>
+<body>
+<div class="app-shell">
+  <div id="sidebar-container"></div>
+  <main class="page-content">
+<section>
+  <header class="page-header">
+    <div>
+      <h1 data-i18n="teams.heading">Equipos</h1>
+      <p data-i18n="teams.subtitle">Administra los integrantes y roles de tu equipo de trabajo.</p>
+    </div>
+  </header>
+
+  <section class="teams-summary">
+    <article class="card summary-card">
+      <h3 data-i18n="teams.activeMembers">Miembros activos</h3>
+      <strong id="active-members-count">0</strong>
+    </article>
+
+    <article class="card summary-card">
+      <h3 data-i18n="teams.admins">Administradores</h3>
+      <strong id="admin-count">0</strong>
+    </article>
+
+    <article class="card summary-card">
+      <h3 data-i18n="teams.developers">Desarrolladores</h3>
+      <strong id="developer-count">0</strong>
+    </article>
+  </section>
+
+  <section class="teams-layout">
+    <article class="card">
+      <h2 data-i18n="teams.addMember">Agregar integrante</h2>
+      <p class="muted compact" data-i18n="teams.addHint">Registra un miembro y asigna su rol inicial.</p>
+
+      <form id="member-form" class="member-form">
+        <div class="form-group">
+          <label for="member-name" data-i18n="teams.fullName">Nombre completo</label>
+          <input id="member-name" type="text" data-i18n-placeholder="teams.namePlaceholder" placeholder="Nombre del integrante" required />
+        </div>
+
+        <div class="form-group">
+          <label for="member-email" data-i18n="teams.email">Correo electrónico</label>
+          <input id="member-email" type="email" data-i18n-placeholder="login.email" placeholder="nombre@correo.com" required />
+        </div>
+
+        <div class="form-group">
+          <label for="member-role" data-i18n="teams.role">Rol</label>
+          <select id="member-role" data-i18n-options="role">
+            <option value="administrator" data-i18n="role.administrator">Administrador</option>
+            <option value="developer" selected data-i18n="role.developer">Desarrollador</option>
+            <option value="designer" data-i18n="role.designer">Diseñador</option>
+            <option value="documentation" data-i18n="role.documentation">Documentación</option>
+          </select>
+        </div>
+
+        <button class="primary-button" type="submit" data-i18n="teams.addBtn">Agregar miembro</button>
+      </form>
+    </article>
+
+    <article class="card">
+      <div class="members-toolbar">
+        <div>
+          <h2 data-i18n="teams.membersList">Miembros del equipo</h2>
+          <p class="muted compact" data-i18n="teams.membersHint">Consulta, busca y modifica los roles.</p>
+        </div>
+
+        <input id="member-search" type="search" data-i18n-placeholder="teams.search" placeholder="Buscar por nombre o correo..." />
+      </div>
+
+      <div class="members-table-wrapper">
+        <table class="members-table">
+          <thead>
+            <tr>
+              <th data-i18n="teams.colMember">Integrante</th>
+              <th data-i18n="teams.colRole">Rol</th>
+              <th data-i18n="teams.colStatus">Estado</th>
+              <th data-i18n="teams.colActions">Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="members-table-body"></tbody>
+        </table>
+
+        <p id="members-empty-state" class="empty-state hidden" data-i18n="teams.empty">No se encontraron integrantes.</p>
+      </div>
+    </article>
+  </section>
+</section>
+
+  </main>
+</div>
+
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+  <script src="../../js/core/i18n.js"></script>
+  <script src="../../js/core/app.js"></script>
+  <script src="../../js/pages/teams.js"></script>
+</body>
+</html>
